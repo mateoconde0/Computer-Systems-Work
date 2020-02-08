@@ -1,0 +1,137 @@
+class Ball{
+	field int x,y;
+	field int state; 
+	constructor Ball new( int Ax, int Ay){
+		let x = Ax;
+		let y = Ay;
+		let state = 0;
+		do draw();
+		return this;
+	}
+	method void draw(){
+		do Screen.setColor(true);
+		do Screen.drawCircle(x,y,5);
+		return;
+	}
+	method void moveLeft(){
+		if ((x-5) > 1){
+			do Screen.setColor( false );
+			do Screen.drawCircle(x,y,5);
+			do Screen.setColor( true );
+			let x = x - 2;
+			do Screen.drawCircle(x,y,5);
+		}
+		return; 
+	}
+	method void moveRight(){
+		if ((x+5)< 510){
+			do Screen.setColor( false );
+			do Screen.drawCircle(x,y,5);
+			do Screen.setColor( true );
+			let x = x + 2; 
+			do Screen.drawCircle(x,y,5);
+		}
+		return;
+	}
+	method void moveVXY(){
+		if ((x + 7) < 510 & (y - 7) > 0){
+			//we can now move to the left 
+			do Screen.setColor( false );
+			do Screen.drawCircle(x,y,5);
+			do Screen.setColor( true );
+			let x = x + 2;
+			let y = y - 2;
+			do Screen.drawCircle(x,y,5);
+			return;
+		} 
+		if (~((x + 7) < 510)){
+			let state = 1;
+			return;
+		}
+		if (~((y - 7) > 0)){
+			let state = 3;
+			return;
+		}
+		return;
+	}
+	method void moveVNXY(){
+		if( (x - 7) > 1 & (y - 7) > 1){
+			do Screen.setColor( false );
+			do Screen.drawCircle(x,y,5);
+			do Screen.setColor( true );
+			let x = x - 2;
+			let y = y - 2;
+			do Screen.drawCircle(x,y,5);
+			return;
+		}
+		if (~((x - 7) > 1)){
+			let state = 0;
+			return;
+		}
+		if (~((y - 7) > 1)){
+			let state = 2;
+			return;
+		}
+		return;
+	}
+	method int moveVNXNY( int padMin, int padMax ){
+		if ( ((x - 7) > 1) & ((y + 7) < 240)){
+			if (bounce(padMin,padMax)){
+				//its hit the paddle! 
+				let state = 1; 
+				return 1; 
+			}
+			do Screen.setColor( false );
+			do Screen.drawCircle(x,y,5);
+			do Screen.setColor( true );
+			let x = x - 2;
+			let y = y + 2;
+			do Screen.drawCircle(x,y,5);
+			return 1;
+		} 
+		if (~((x - 7) > 1)){
+			let state = 3;
+			return 1;
+		}
+		if (~((y + 7) < 240)){
+			let state = 1;
+			return 2;
+		}
+		return 1; 
+	}
+	method int moveVXNY( int padMin, int padMax ){
+	if ( ((x + 7) < 510) & ((y + 7) < 240) ){
+			if (bounce(padMin,padMax)){
+				//its hit the paddle! 
+				let state = 0; 
+				return 1; 
+			}
+			do Screen.setColor( false );
+			do Screen.drawCircle(x,y,5);
+			do Screen.setColor( true );
+			let x = x + 2;
+			let y = y + 2;
+			do Screen.drawCircle(x,y,5);
+			return 1;
+		} 
+		if (~((x + 7) < 510)){
+			let state = 2;
+			return 1;
+		}
+		if (~((y + 7) < 240)){
+			let state = 1; 
+			return 2;
+		}
+		return 1; 
+	}
+	method boolean bounce( int lowerBound, int upperBound ){
+		if( ((x-5) > lowerBound) & ((x+5) < upperBound) & (~((y + 7) < 229))){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	method int getState(){
+		return state; 
+	}
+}

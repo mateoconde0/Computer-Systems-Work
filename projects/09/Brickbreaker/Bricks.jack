@@ -1,0 +1,31 @@
+class Bricks{
+    field Matrix board; 
+    field int numBricks; 
+    field int r,c; 
+    field Matrix locations: 
+
+    constructor Bricks new(int aNumBricks, Matrix alocations){
+        //the game board is going to be 4 rows by 8 columns. 
+        let board = Matrix.new(4,8);
+        let numBricks = aNumBricks;
+        let locations = alocations;
+        return this;
+    }
+
+    method void draw(){
+        var int i,x; 
+        let i = r; 
+        let x = c; 
+        while(i > 0){
+            while ( x > 0 ){
+                var Rectangle rect; 
+                let rect = Rectangle.new();
+                board.insert(r,c,rect);
+                let x = x - 1; 
+                let i = i - 1; 
+            }
+        }
+        return;
+    }
+
+}

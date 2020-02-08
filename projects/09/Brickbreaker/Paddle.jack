@@ -1,0 +1,42 @@
+class Paddle{
+	field int x,y;
+	field Array position_array;
+	constructor Paddle new(int Ax, int Ay){
+		let x = Ax;
+		let y = Ay;
+		let position_array = Array.new(2);
+		do draw();
+		return this;
+	}
+	method void draw(){
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x,y,x+40,y+10);
+		return;
+	}
+	method void moveLeft(){
+		if ( x > 1){
+			//we can now move to the left 
+			do Screen.setColor(false);
+			do Screen.drawRectangle((x + 40) - 1, y, x + 40, y + 10);
+			let x = x - 2;
+			do Screen.setColor(true);
+			do Screen.drawRectangle(x, y, x + 1, y + 10);
+		}
+		return;
+	}
+	method void moveRight(){
+		if( x + 40 < 510){
+			do Screen.setColor(false);
+			do Screen.drawRectangle(x, y, x + 1, y + 10);
+			let x = x + 2;
+			do Screen.setColor(true);
+			do Screen.drawRectangle((x + 40) - 1, y, x + 40, y + 10);
+		} 
+		return;
+	}
+	method Array get_position(){
+		let position_array[0] = x;
+		let position_array[1] = x + 40;
+		return position_array;
+	}
+}

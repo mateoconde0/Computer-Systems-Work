@@ -1,0 +1,12 @@
+/**Main function for brick breaker**/
+
+class Main {
+   function void main() {
+      /* Prints some text using the standard library. */
+      var Board myBoard;
+	  let myBoard = Board.new();
+	  do myBoard.setup();
+	  do myBoard.run();
+     return;
+   }
+}

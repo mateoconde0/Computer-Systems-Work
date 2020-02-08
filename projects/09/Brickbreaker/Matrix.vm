@@ -1,0 +1,39 @@
+function Matrix.new 1
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+call Array.new 1
+pop this 0
+push argument 1
+call Array.new 1
+pop this 1
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 0
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+push this 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+return
+function Matrix.insert 0
+push argument 0
+pop pointer 0
+push constant 0
+return

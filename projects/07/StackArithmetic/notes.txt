@@ -1,0 +1,37 @@
+Notes: 
+Variable Kinds: 
+- Arguments 
+- local 
+- static 
+
+Type of actions: 
+General Stack Commands:
+- push 
+- pop 
+
+Arithmetic Commands:
+- add 
+- sub 
+- neg 
+- eq
+- gt 
+- lt 
+- and 
+- or 
+- not 
+
+
+Pseudo assembly code: 
+D = *p 
+in hack: 
+@sp
+A=M //store whatever is in A to M 
+D=RAM[258] //store A in M 
+
+push argument 1 --> hack assembly 
+
+lcl --> RAM[1] 
+
+@sp
+M = M - 1
+ 

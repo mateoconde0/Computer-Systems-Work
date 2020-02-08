@@ -1,0 +1,28 @@
+class Matrix{
+	field Array x; 
+	field Array y; 
+	constructor Matrix new( int row, int col){
+		var int i;
+		let x = Array.new(row);
+		let i = 0;
+		while ( i < row){
+			let x[i] = Array.new(col);
+			let i = i + 1;
+		}
+		return this; 
+	}
+	method void insert( int r, int c, Array data){	
+		return;
+	}
+	method void insert(int r, int c, Rectangle rect){
+		var Array z;
+		let z = x[r];
+		let z[c] = rect; 
+		return; 
+	}
+	method Rectangle access(int r, int c){
+		var Array z;
+		let z = x[r];
+		return z[c];
+	}
+}

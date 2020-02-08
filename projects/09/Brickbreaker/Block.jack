@@ -1,0 +1,23 @@
+
+class Block{
+	field int x, y; 
+	field int xSize, ySize;
+	field Array bounds; 
+
+	constructor Block new(int Ax, int Ay, int AxSize, int AySize){
+		let x = Ax;
+		let y = Ay;
+		let xSize = AxSize;
+		let ySize = AySize;
+		let bounds = Array.new(4);
+		let bounds[0] = x;
+		let bounds[1] = y;
+		let bounds[2] = x + xSize;
+		let bounds[3] = y + ySize;
+		return this; 
+	}
+
+	method Array get_bounds(){
+		return bounds;
+	}
+}

@@ -1,0 +1,108 @@
+class Board{
+	field Paddle myPaddle; 
+	field Ball myBall;
+	field Bricks myBricks;
+	field int direction;
+	field int state; 
+	field int lives; 
+
+	constructor Board new(){
+		let myPaddle = Paddle.new(236,229);
+		let myBall = Ball.new(256,223);
+		let myBricks = Bricks.new(10);
+		let direction = 0;
+		let lives = 3; 
+		return this;
+	}
+	
+	method void setup(){
+		let state = 0;
+		//set color to white
+		do Screen.setColor( false );
+		do Screen.drawLine(0,239,511,239);
+		//draw the black separator line 
+		do Screen.setColor( true );
+		do Screen.drawLine(0,240,511,240);
+		//create the paddle 
+		do myPaddle.draw();
+		do myBall.draw();
+		return;
+	}
+	method void movePaddle(){
+		if ( direction = -1 ){
+			do myPaddle.moveLeft();
+		}
+		if ( direction = 1 ){
+			do myPaddle.moveRight();
+		}
+		do Sys.wait(5); 
+		return;
+	}
+	
+	method void moveBall(){
+		if (state = 0){
+			if (direction = 1){
+				do myBall.moveRight();
+			}
+			if (direction = -1 ){
+				do myBall.moveLeft();
+			}	
+		}
+		return;
+	}
+	method void launchBall(){
+		do myBall.moveVXY(); // for now move in the postive XY direction
+		return; 
+	}
+	method void run(){
+		var char key; 
+		var boolean exit;
+		var Array paddlePosition;
+		let exit = false;
+		let key = 0; 
+		while (~exit) {
+			while (key = 0) {
+				let key = Keyboard.keyPressed();
+				let paddlePosition = myPaddle.get_position();
+				if (state = 1){
+					if (myBall.getState() = 0){
+						do myBall.moveVXY();
+					}
+					if (myBall.getState() = 1){
+						do myBall.moveVNXY();
+					}
+					if (myBall.getState() = 2){
+						let state = myBall.moveVNXNY(paddlePosition[0],paddlePosition[1]);
+					}
+					if (myBall.getState() = 3){
+						let state = myBall.moveVXNY(paddlePosition[0],paddlePosition[1]);
+					}
+					do Sys.wait(20);
+				}
+			}
+			if (state = 0){
+				//state for when the ball hasn't been launched yet.
+				if (key = 81)  { let exit = true; }
+				if (key = 130) { let direction = -1; do movePaddle(); do moveBall();}   // left arrow
+				if (key = 132) { let direction = 1; do movePaddle(); do moveBall();}	// right arrow
+				if (key = 128) { let state = 1; do launchBall();}
+			}
+			if (state = 1){
+				//This is when the ball has been launched. 
+				if (key = 81)  { let exit = true; }
+				if (key = 130) { let direction = -1; do movePaddle();}   // left arrow
+				if (key = 132) { let direction = 1; do movePaddle();}	// right arrow
+			}
+			if ((state = 2)){
+				do Sys.halt();
+			}
+			// if (state = 2 & lives > 0){
+			// 	let lives = lives - 1; 
+			// }
+			let key = 0;
+			//prevents it from looping too quickly 
+			do Sys.wait(5);
+		}
+		return;
+	}
+}
